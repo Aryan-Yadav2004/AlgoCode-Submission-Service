@@ -1,7 +1,8 @@
 import fastifyPlugin from 'fastify-plugin';//helps to create plugins
 import cors from '@fastify/cors';
 import servicePlugin from './services/servicePlugin.js';
-import * as apiRoutes from './routes/api/apiRoutes.js'
+import apiRoutes from './routes/api/apiRoutes.js'
+import repositoryPlugin from './repositories/repositoryPlugin.js';
 /**
  * 
  * @param {Fastify object} fastify 
@@ -9,11 +10,12 @@ import * as apiRoutes from './routes/api/apiRoutes.js'
  */
 
 async function app(fastify, options) { 
-    fastify.register(cors);
-    // register test routes
-    fastify.register(apiRoutes, {prefix: '/api'});
+    await fastify.register(cors);
+    await fastify.register(repositoryPlugin);
+    // register test routes 
+    await fastify.register(apiRoutes, {prefix: '/api'});
 
-    fastify.register(servicePlugin);
+    await fastify.register(servicePlugin);
 }
 
 export default fastifyPlugin(app);

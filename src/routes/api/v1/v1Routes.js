@@ -1,7 +1,7 @@
-import testRoute from "./test/testRoutes.js";
+import submissionRoutes from "./submissionRoutes.js";
 
-async function  v1Routes(fastify, options) {
-    fastify.register(testRoute, {prefix: '/test'});
+async function v1Plugin(fastify, options) {
+    fastify.register(submissionRoutes, {prefix: '/submission'});
 }
 
-export default v1Routes;
+export default v1Plugin;

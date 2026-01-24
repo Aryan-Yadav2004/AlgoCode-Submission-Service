@@ -1,7 +1,7 @@
-import TestService from './testService.js';
+import SubmissionService from './submissionService.js';
 import fastifyPlugin from 'fastify-plugin';
 async function servicePlugin(fastify, options) {
-    fastify.decorate('testService', new TestService());
+    fastify.decorate('submissionService', new SubmissionService(fastify.submissionRepository));
 }
 
 export default fastifyPlugin(servicePlugin);
