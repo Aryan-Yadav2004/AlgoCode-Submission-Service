@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import BaseError from "./baseError";
+import BaseError from "./baseError.js";
 
 
 class InternalServerError extends BaseError{
