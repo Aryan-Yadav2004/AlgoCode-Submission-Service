@@ -2,6 +2,8 @@ import Fastify from 'fastify';
 import app from './app.js';
 import * as serviceConfig from './config/serverConfig.js';
 import connnectToDB from './config/dbConfig.js';
+import EvaluatorWorker from './worker/evaluatorWorker.js';
+import { evaluator_queue } from './config/constants.js';
 
 const fastify = Fastify({ logger: true }); //logger true krne se har request ka log automatically milta hai.
 
@@ -15,4 +17,5 @@ fastify.listen({port: serviceConfig.PORT}, (err) => {
     }
     connnectToDB();
     console.log(`Server up at port ${serviceConfig.PORT}`);
+    EvaluatorWorker(evaluator_queue);
 }); 

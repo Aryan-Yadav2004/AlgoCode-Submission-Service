@@ -6,9 +6,14 @@ class SubmissionRepository {
     }
 
     async createSubmission(submission) {
-        console.log("repository", submission);
+        // console.log("repository", submission);
         const response = await this.submissionModel.create(submission);
         return response;
+    }
+
+    async updateSubmissionStatus (submission){
+        // console.log(submission);
+        return submission;
     }
 }
 

@@ -27,14 +27,22 @@ class SubmissionService {
             if(!submission) {
                 throw new InternalServerError("unable to create submission");
             }
-            console.log("service",submission);
-            const response = await submissionQueueProducer({[submission._id] : {code: submission.code, language: submission.language, inputTestCase: problemAdminApiResponse.data.testCases[0].input, outputTestCase: problemAdminApiResponse.data.testCases[0].output}});
-            console.log("queue", response);
+            // console.log("service",submission);
+            const response = await submissionQueueProducer({[submission._id] : {userId: submission.userId ,code: submission.code, language: submission.language, inputTestCase: problemAdminApiResponse.data.testCases[0].input, outputTestCase: problemAdminApiResponse.data.testCases[0].output}});
+            // console.log("queue", response);
             return {submission};
         } catch (error) {
             console.log(error);
             return {error: error};
         }
     }  
+
+    async updateSubmissionStatus(submissionPayload) {
+        try {
+            const submission = await this.submissionRepository.updateSubmissionStatus(submissionPayload);
+        } catch(error){
+            console.log(error);
+        }
+    }
 }
 export default SubmissionService;
