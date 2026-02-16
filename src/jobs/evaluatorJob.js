@@ -14,5 +14,13 @@ export default class EvaluatorJob{
         console.log("evaluator handler called");
         const submissionServiceInstance = new SubmissionService(new SubmissionRepository());
         await submissionServiceInstance.updateSubmissionStatus(this.payload);
+        console.log(this.payload);
+        await fetch("http://localhost:3004/sendPayload", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(this.payload), // Convert body to JSON string
+        });
     }
 }

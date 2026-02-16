@@ -12,7 +12,8 @@ class SubmissionRepository {
     }
 
     async updateSubmissionStatus (submission){
-        // console.log(submission);
+        const response = await this.submissionModel.findOneAndUpdate({_id: submission.submissionId}, {$set: {status: submission.status}});
+        // console.log(response);
         return submission;
     }
 }

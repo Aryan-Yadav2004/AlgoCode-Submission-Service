@@ -28,7 +28,7 @@ class SubmissionService {
                 throw new InternalServerError("unable to create submission");
             }
             // console.log("service",submission);
-            const response = await submissionQueueProducer({[submission._id] : {userId: submission.userId ,code: submission.code, language: submission.language, inputTestCase: problemAdminApiResponse.data.testCases[0].input, outputTestCase: problemAdminApiResponse.data.testCases[0].output}});
+            const response = await submissionQueueProducer({[submission._id] : {userId: submission.userId ,code: submission.code, language: submission.language, testCases: problemAdminApiResponse.data.testCases}});
             // console.log("queue", response);
             return {submission};
         } catch (error) {
