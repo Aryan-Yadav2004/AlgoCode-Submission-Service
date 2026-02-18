@@ -15,11 +15,10 @@ class SubmissionService {
         if(!problemAdminApiResponse) {
             throw new InternalServerError({});
         }
-
+        console.log(submissionPayload);
         const languageCodeStub = problemAdminApiResponse.data.codeStubs.find(codeStub => codeStub.language.toLowerCase() === submissionPayload.language.toLowerCase());
-
         submissionPayload.code = languageCodeStub.startSnippet + '\n\n' + submissionPayload.code + '\n\n' + languageCodeStub.endSnippet; 
-
+        
         // we are going to create the entry in db
         try {
             const submission = await this.submissionRepository.createSubmission(submissionPayload);
@@ -41,6 +40,15 @@ class SubmissionService {
         try {
             const submission = await this.submissionRepository.updateSubmissionStatus(submissionPayload);
         } catch(error){
+            console.log(error);
+        }
+    }
+
+    async getSubmissionForProblemForUser(submissionPayload) {
+        try {
+            const response = await this.submissionRepository.getSubmissionsForProblemForUser({userId: submissionPayload.userId, problemId: submissionPayload.problemId});
+            return response;
+        } catch(error) {
             console.log(error);
         }
     }

@@ -10,7 +10,7 @@ import repositoryPlugin from './repositories/repositoryPlugin.js';
  */
 
 async function app(fastify, options) { 
-    await fastify.register(cors);
+    await fastify.register(cors, {origin: '*'});
     await fastify.register(repositoryPlugin);
     // register test routes 
     await fastify.register(apiRoutes, {prefix: '/api'});

@@ -16,6 +16,11 @@ class SubmissionRepository {
         // console.log(response);
         return submission;
     }
+
+    async getSubmissionsForProblemForUser ({userId, problemId}){
+        const response = await this.submissionModel.find({userId, problemId});
+        return response;
+    }
 }
 
 export default SubmissionRepository;
